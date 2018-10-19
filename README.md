@@ -1,6 +1,6 @@
-# flipgrid
+# Vue.js Login Demo
 
-> Flipgrid code challenge
+Simple login page built with vue.js on top of the vue-cli scaffold.
 
 ## Build Setup
 
