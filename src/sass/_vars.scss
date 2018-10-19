@@ -1,0 +1,34 @@
+$color-white: #FFFFFF !default;
+$color-grey: #717A87 !default;
+$color-light-grey: #E6EAEE !default;
+$color-black: #354052 !default;
+$color-magenta: #C61B6E !default;
+$color-red: #E32B2B !default;
+
+$color-text: $color-black;
+$color-text-muted: $color-grey;
+$color-background: $color-white;
+$color-primary: $color-magenta;
+
+$gradient-primary: linear-gradient(60deg, $color-primary 0%, lighten($color-primary, 5%) 100%);
+
+$shadow-color-light: transparentize($color-black, 0.8) !default;
+$shadow-color-dark: transparentize($color-black, 0.5) !default;
+$shadow: 2px 2px 6px $shadow-color-dark !default;
+$shadow-hovered: 2px 3px 12px $shadow-color-dark !default;
+
+$font-size-base: 18px;
+$font-fallback-stack: "Helvetica", sans-serif;
+$font-stack: "Roboto", $font-fallback-stack;
+
+$radius: 3px;
+
+$breakpoints: ("small": 420px, "medium": 780px, "large": 1160px, "x-large": 1400px);
+
+$grid-container-width: 1200px;
+$grid-container: minmax(0, $grid-container-width);
+
+$grid-container-narrow-width: 600px;
+$grid-container-narrow: minmax(0, $grid-container-narrow-width);
+
+$grid-exterior-gutter: minmax(1.375em, 1fr);

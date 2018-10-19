@@ -1,0 +1,29 @@
+.form {
+    input:not(.button) {
+        display: block;
+        width: 100%;
+        margin-bottom: .75em;
+        padding: .575em 1.25em;
+        border: 1px solid $color-light-grey;
+        border-radius: $radius;
+
+        &::placeholder {
+            color: $color-text-muted;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .button {
+        display: block;
+        margin-left: auto;
+    }
+}
+
+.form--error {
+    color: $color-red;
+    font-size: .875em;
+    margin-top: .25em;
+}

@@ -1,0 +1,11 @@
+.site:not(.is-narrow) {
+    @include grid;
+}
+
+.site.is-narrow {
+    @include grid($grid-container-narrow);
+}
+
+.module {
+    @include item--contained;
+}

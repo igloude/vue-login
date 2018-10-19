@@ -1,0 +1,121 @@
+// Flexible Grid Layout
+// ////////////////////////////////////////
+@mixin grid($container: $grid-container) {
+    display: block;
+    max-width: $grid-container-narrow-width;
+    margin-left: auto;
+    margin-right: auto;
+
+    @supports (display: grid) {
+        max-width: unset;
+        margin-left: unset;
+        margin-right: unset;
+        display: grid;
+        grid-template-columns: [viewport-start] $grid-exterior-gutter [container-start] $container [container-end] $grid-exterior-gutter [viewport-end];
+    }
+}
+
+@mixin item--contained {
+    display: block;
+
+    @supports (display: grid) {
+        grid-column: container;
+    }
+}
+
+@mixin item--full {
+    display: block;
+
+    @supports (display: grid) {
+        grid-column: viewport;
+        display: inherit;
+        grid-template-columns: inherit;
+
+        > * {
+            grid-column: container;
+        }
+    }
+}
+
+// Button/Highlight Text Style Shortcut
+// ////////////////////////////////////////
+@mixin light-text-on-color {
+    color: transparentize($color-white, 0.1);
+    text-shadow: 0 1px transparentize($color-black, 0.85);
+}
+
+// Flexible Media Query
+// ////////////////////////////////////////
+
+// check to see if single or double declaration
+@function parseSwitch($var) {
+    @if map_has_key($breakpoints, $var) or type-of($var) == "number" {
+        @return "double";
+    }
+    @else if $var == "max" or $var == "min" {
+        @return "single";
+    }
+    @else {
+        @return "err";
+    }
+}
+
+// map variable name or number to its px equivalent
+@function parseWidth($width) {
+    // if map variable, grab and return
+    @if map_has_key($breakpoints, $width) {
+        $width: map_get($breakpoints, $width);
+
+        @return $width;
+    }
+    @else if type-of($width) == "number" {
+        $width: $width + 0px;
+
+        @return $width;
+    }
+    @else {
+        @return "err";
+    }
+}
+
+@mixin query($width, $flex: min) {
+    // get second param type ("single" or "double")
+    $switch: parseSwitch($flex);
+
+    // get first param width
+    @if type-of(parseWidth($width)) != "number" {
+        @error "'#{$width}' is not a legal value for query";
+    }
+    @else {
+        $width: parseWidth($width);
+    }
+
+    // throw warning if parseSwitch() isn't happy
+    @if $switch == "err" {
+        @error "'#{$flex}' is not a legal value for query";
+    }
+
+    // double breakpoint
+    @if $switch == "double" {
+        @if map_has_key($breakpoints, $flex) {
+            $flex: map_get($breakpoints, $flex);
+        }
+
+        $flex: $flex - 1px;
+
+        @media only screen and (min-width: $width) and (max-width: $flex) {
+            @content;
+        }
+    }
+
+    // single breakpoint
+    @if $switch == "single" {
+        @if $flex == "max" {
+            $width: $width - 1px;
+        }
+
+        @media only screen and (#{$flex}-width: $width) {
+            @content;
+        }
+    }
+}

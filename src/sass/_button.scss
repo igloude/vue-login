@@ -1,0 +1,27 @@
+.button {
+    width: 100%;
+    padding-top: .85rem;
+    padding-bottom: .85rem;
+    border: 1px solid $color-grey;
+    border-radius: $radius;
+    font-weight: bold;
+    box-shadow: $shadow;
+    transition: .125s ease-in-out;
+
+    &.is-primary {
+        border: transparent;
+        background: $gradient-primary;
+
+        @include light-text-on-color;
+    }
+
+    @include query("small") {
+        width: unset;
+        padding: .625rem 1.25rem;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: $shadow-hovered;
+        }
+    }
+}
