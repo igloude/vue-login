@@ -6,7 +6,7 @@
 
 		<p class="stack-1 with--text-muted">Use the form below to sign up for this super awesome service. You totally won't regret it! Definitely no spam email coming your way. 😉</p>
 
-		<form class="form" @submit="checkForm()">
+		<form class="form" @submit.prevent="checkForm()">
 		
 			<p class="stack-1_5" v-if="errors.length">
 				<span class="with--text-bold">Please correct the following error(s):</span>
@@ -19,10 +19,10 @@
 			<input id="firstname" placeholder="First Name" type="text" v-model="user.firstname">
 
 			<label class="with--visually-hidden" for="email">Email</label>
-			<input id="email" placeholder="Email" type="text" v-model="user.email">
+			<input id="email" placeholder="Email" type="email" v-model="user.email">
 
 			<label class="with--visually-hidden" for="password">Password</label>
-			<input id="password" placeholder="Password" type="text" v-model="user.password">
+			<input id="password" placeholder="Password" type="password" v-model="user.password">
 
 			<input class="button is-primary" type="submit" value="Sign Up">
 
@@ -55,22 +55,20 @@
 				const user = this.$store.state.user;
 
 				if (user.firstname && user.email && user.password) {
-					this.submit()
+					this.submit();
 				}
 
-				this.errors = []
+				this.errors = [];
 
 				if (!user.firstname) {
-					this.errors.push('Name required.')
+					this.errors.push('Name required.');
 				}
 				if (!user.email) {
-					this.errors.push('Email required.')
+					this.errors.push('Email required.');
 				}
 				if (!user.password) {
-					this.errors.push('Password required.')
+					this.errors.push('Password required.');
 				}
-
-				e.preventDefault()
 			}
 		}
 	}
